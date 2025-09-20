@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
  * )
  * 
  * @OA\Server(
- *     url="http://localhost:8000",
- *     description="Servidor de desenvolvimento"
+ *     url="https://vaimebancar.codegus.com",
+ *     description="Servidor de produção"
  * )
  * 
  * @OA\Tag(
