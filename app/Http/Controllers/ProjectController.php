@@ -226,7 +226,7 @@ class ProjectController extends Controller
     /**
      * @OA\Get(
      *     path="/api/projects/{project}",
-     *     summary="Visualizar projeto específico",
+     *     summary="Visualizar projeto específico (básico)",
      *     tags={"Projetos"},
      *     @OA\Parameter(
      *         name="project",
@@ -238,22 +238,7 @@ class ProjectController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Projeto retornado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="project", ref="#/components/schemas/Project"),
-     *             @OA\Property(
-     *                 property="fundraising_stats",
-     *                 type="object",
-     *                 @OA\Property(property="help_amount", type="number", format="float", example=500.00),
-     *                 @OA\Property(property="stop_amount", type="number", format="float", example=300.00),
-     *                 @OA\Property(property="total_amount", type="number", format="float", example=800.00),
-     *                 @OA\Property(property="help_percentage", type="number", format="float", example=62.5),
-     *                 @OA\Property(property="stop_percentage", type="number", format="float", example=37.5),
-     *                 @OA\Property(property="stop_wins", type="boolean", example=false),
-     *                 @OA\Property(property="troll_message", type="string", nullable=true),
-     *                 @OA\Property(property="help_count", type="integer", example=5),
-     *                 @OA\Property(property="stop_count", type="integer", example=3)
-     *             )
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/Project")
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -266,12 +251,7 @@ class ProjectController extends Controller
         $project->load('donates');
         $project->updateCurrentAmount();
         
-        $response = [
-            'project' => $project,
-            'fundraising_stats' => $project->getFundraisingStats(),
-        ];
-        
-        return response()->json($response);
+        return response()->json($project);
     }
 
     /**
@@ -320,7 +300,7 @@ class ProjectController extends Controller
     /**
      * @OA\Get(
      *     path="/api/projects/{project}/info",
-     *     summary="Obter informações completas do projeto com gamificação",
+     *     summary="Obter informações completas do projeto (recomendado)",
      *     tags={"Projetos"},
      *     @OA\Parameter(
      *         name="project",
@@ -425,7 +405,7 @@ class ProjectController extends Controller
     /**
      * @OA\Get(
      *     path="/api/projects/{project}/fundraising-stats",
-     *     summary="Obter estatísticas de arrecadação do projeto",
+     *     summary="Obter apenas estatísticas de arrecadação (help vs stop)",
      *     tags={"Projetos"},
      *     @OA\Parameter(
      *         name="project",

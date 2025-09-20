@@ -809,7 +809,7 @@
                 "tags": [
                     "Projetos"
                 ],
-                "summary": "Visualizar projeto específico",
+                "summary": "Visualizar projeto específico (básico)",
                 "operationId": "1352e06e55f6ab10d3702509cd385918",
                 "parameters": [
                     {
@@ -828,58 +828,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "project": {
-                                            "$ref": "#/components/schemas/Project"
-                                        },
-                                        "fundraising_stats": {
-                                            "properties": {
-                                                "help_amount": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 500
-                                                },
-                                                "stop_amount": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 300
-                                                },
-                                                "total_amount": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 800
-                                                },
-                                                "help_percentage": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 62.5
-                                                },
-                                                "stop_percentage": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 37.5
-                                                },
-                                                "stop_wins": {
-                                                    "type": "boolean",
-                                                    "example": false
-                                                },
-                                                "troll_message": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "help_count": {
-                                                    "type": "integer",
-                                                    "example": 5
-                                                },
-                                                "stop_count": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Project"
                                 }
                             }
                         }
@@ -895,7 +844,7 @@
                 "tags": [
                     "Projetos"
                 ],
-                "summary": "Obter informações completas do projeto com gamificação",
+                "summary": "Obter informações completas do projeto (recomendado)",
                 "operationId": "0450ce1917054dd817823b6150310341",
                 "parameters": [
                     {
@@ -1006,7 +955,7 @@
                 "tags": [
                     "Projetos"
                 ],
-                "summary": "Obter estatísticas de arrecadação do projeto",
+                "summary": "Obter apenas estatísticas de arrecadação (help vs stop)",
                 "operationId": "9214286f3c05969bc87449b711c44ac7",
                 "parameters": [
                     {
