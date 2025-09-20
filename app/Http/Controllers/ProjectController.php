@@ -69,8 +69,67 @@ use Illuminate\Http\Request;
  *     @OA\Property(property="cellphone", type="string", example="11888888888"),
  *     @OA\Property(property="asaas_cliente_id", type="string", example="cus_123456"),
  *     @OA\Property(property="asaas_cobranca_id", type="string", example="pay_789012"),
+ *     @OA\Property(property="donation_type", type="string", enum={"help", "stop"}, example="help", description="Tipo da doação: help (ajudar) ou stop (parar projeto)"),
+ *     @OA\Property(property="donation_message", type="string", example="Boa sorte com o projeto!", description="Mensagem personalizada do doador"),
  *     @OA\Property(property="created_at", type="string", format="date-time"),
  *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ * 
+ * @OA\Schema(
+ *     schema="CreateDonateData",
+ *     type="object",
+ *     required={"amount", "status", "project_id", "donor_name", "cellphone", "donation_type"},
+ *     @OA\Property(property="amount", type="number", format="float", example=100.00, description="Valor da doação"),
+ *     @OA\Property(property="status", type="string", enum={"pending", "paid", "cancelled"}, example="pending"),
+ *     @OA\Property(property="project_id", type="integer", example=1),
+ *     @OA\Property(property="donor_name", type="string", example="Maria Santos"),
+ *     @OA\Property(property="cellphone", type="string", example="11888888888"),
+ *     @OA\Property(property="asaas_cliente_id", type="string", example="cus_123456"),
+ *     @OA\Property(property="asaas_cobranca_id", type="string", example="pay_789012"),
+ *     @OA\Property(property="donation_type", type="string", enum={"help", "stop"}, example="help", description="Tipo da doação: help (ajudar) ou stop (parar projeto)"),
+ *     @OA\Property(property="donation_message", type="string", example="Boa sorte com o projeto!", description="Mensagem personalizada do doador")
+ * )
+ * 
+ * @OA\Schema(
+ *     schema="CreatePixPaymentData",
+ *     type="object",
+ *     required={"amount", "project_id", "donor_name", "donor_email", "donor_cpf", "donor_phone", "donation_type"},
+ *     @OA\Property(property="amount", type="number", format="float", example=100.00),
+ *     @OA\Property(property="project_id", type="integer", example=1),
+ *     @OA\Property(property="donor_name", type="string", example="Maria Santos"),
+ *     @OA\Property(property="donor_email", type="string", format="email", example="maria@email.com"),
+ *     @OA\Property(property="donor_cpf", type="string", example="12345678901"),
+ *     @OA\Property(property="donor_phone", type="string", example="11999999999"),
+ *     @OA\Property(property="description", type="string", example="Doação para ajudar o projeto"),
+ *     @OA\Property(property="donation_type", type="string", enum={"help", "stop"}, example="help", description="Tipo da doação: help (ajudar) ou stop (parar projeto)"),
+ *     @OA\Property(property="donation_message", type="string", example="Boa sorte!", description="Mensagem personalizada do doador")
+ * )
+ * 
+ * @OA\Schema(
+ *     schema="CreateBoletoPaymentData",
+ *     type="object",
+ *     required={"amount", "project_id", "donor_name", "donor_email", "donor_cpf", "donor_phone", "donor_address", "donor_city", "donor_state", "donor_zipcode", "donation_type"},
+ *     @OA\Property(property="amount", type="number", format="float", example=100.00),
+ *     @OA\Property(property="project_id", type="integer", example=1),
+ *     @OA\Property(property="donor_name", type="string", example="Maria Santos"),
+ *     @OA\Property(property="donor_email", type="string", format="email", example="maria@email.com"),
+ *     @OA\Property(property="donor_cpf", type="string", example="12345678901"),
+ *     @OA\Property(property="donor_phone", type="string", example="11999999999"),
+ *     @OA\Property(property="donor_address", type="string", example="Rua das Flores, 123"),
+ *     @OA\Property(property="donor_city", type="string", example="São Paulo"),
+ *     @OA\Property(property="donor_state", type="string", example="SP"),
+ *     @OA\Property(property="donor_zipcode", type="string", example="01234567"),
+ *     @OA\Property(property="description", type="string", example="Doação para ajudar o projeto"),
+ *     @OA\Property(property="donation_type", type="string", enum={"help", "stop"}, example="help", description="Tipo da doação: help (ajudar) ou stop (parar projeto)"),
+ *     @OA\Property(property="donation_message", type="string", example="Boa sorte!", description="Mensagem personalizada do doador")
+ * )
+ * 
+ * @OA\Schema(
+ *     schema="TrollMessage",
+ *     type="object",
+ *     @OA\Property(property="troll_message", type="string", example="😈 João acabou de DOAR PARA PARAR o projeto 'Viagem dos Sonhos'! R$ 100 para fazer o projeto falhar! Que maldade! 😂"),
+ *     @OA\Property(property="donation_type", type="string", enum={"help", "stop"}, example="stop"),
+ *     @OA\Property(property="is_stop_donation", type="boolean", example=true, description="Indica se é uma doação para parar o projeto")
  * )
  * 
  * @OA\Schema(

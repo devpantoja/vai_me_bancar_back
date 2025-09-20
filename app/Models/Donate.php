@@ -13,7 +13,9 @@ class Donate extends Model
         'donor_name',
         'cellphone',
         'asaas_cliente_id',
-        'asaas_cobranca_id'
+        'asaas_cobranca_id',
+        'donation_type',
+        'donation_message'
     ];
 
     protected $casts = [
