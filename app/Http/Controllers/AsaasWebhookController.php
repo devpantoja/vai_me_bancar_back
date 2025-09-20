@@ -6,6 +6,9 @@ use App\Services\AsaasService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @OA\Tag(name="Webhooks")
+ */
 class AsaasWebhookController extends Controller
 {
     private AsaasService $asaasService;
@@ -16,7 +19,46 @@ class AsaasWebhookController extends Controller
     }
 
     /**
-     * Receber webhooks do Asaas
+     * @OA\Post(
+     *     path="/api/webhooks/asaas",
+     *     summary="Receber webhooks do Asaas",
+     *     tags={"Webhooks"},
+     *     @OA\Parameter(
+     *         name="asaas-access-token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *         description="Token de autenticação do webhook"
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="event", type="string", example="PAYMENT_CONFIRMED"),
+     *             @OA\Property(property="payment", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Webhook processado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token inválido",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Token inválido")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro interno do servidor",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Erro interno")
+     *         )
+     *     )
+     * )
      */
     public function handleWebhook(Request $request)
     {

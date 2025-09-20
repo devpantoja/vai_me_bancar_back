@@ -7,6 +7,10 @@ use App\Models\Project;
 use App\Services\AsaasService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(name="Doações")
+ * @OA\Tag(name="Pagamentos")
+ */
 class DonateController extends Controller
 {
     private AsaasService $asaasService;
@@ -138,7 +142,47 @@ class DonateController extends Controller
     }
 
     /**
-     * Criar cobrança PIX no Asaas
+     * @OA\Post(
+     *     path="/api/donates/pix",
+     *     summary="Criar cobrança PIX",
+     *     tags={"Pagamentos"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"amount", "project_id", "donor_name", "donor_email", "donor_cpf", "donor_phone"},
+     *             @OA\Property(property="amount", type="number", format="float", example=100.00),
+     *             @OA\Property(property="project_id", type="integer", example=1),
+     *             @OA\Property(property="donor_name", type="string", example="João Silva"),
+     *             @OA\Property(property="donor_email", type="string", format="email", example="joao@email.com"),
+     *             @OA\Property(property="donor_cpf", type="string", example="11144477735"),
+     *             @OA\Property(property="donor_phone", type="string", example="11999999999"),
+     *             @OA\Property(property="description", type="string", example="Doação para o projeto")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Cobrança PIX criada com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Cobrança PIX criada com sucesso!"),
+     *             @OA\Property(property="donate", ref="#/components/schemas/Donate"),
+     *             @OA\Property(property="payment", type="object"),
+     *             @OA\Property(property="pix_code", type="string", example="QR Code PIX"),
+     *             @OA\Property(property="pix_copy_paste", type="string", example="Código PIX para copiar")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro interno do servidor",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Erro ao criar cobrança PIX")
+     *         )
+     *     )
+     * )
      */
     public function createPixPayment(Request $request)
     {

@@ -1,0 +1,476 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Vai Me Bancar API",
+        "description": "API para sistema de vaquinhas com integração ao Asaas",
+        "contact": {
+            "email": "contato@vaimebancar.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Servidor de desenvolvimento"
+        }
+    ],
+    "paths": {
+        "/api/webhooks/asaas": {
+            "post": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Receber webhooks do Asaas",
+                "operationId": "1d599e156c329556da61a2bf045dd3b9",
+                "parameters": [
+                    {
+                        "name": "asaas-access-token",
+                        "in": "header",
+                        "description": "Token de autenticação do webhook",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "event": {
+                                        "type": "string",
+                                        "example": "PAYMENT_CONFIRMED"
+                                    },
+                                    "payment": {
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Webhook processado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Token inválido"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Erro interno"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/donates/pix": {
+            "post": {
+                "tags": [
+                    "Pagamentos"
+                ],
+                "summary": "Criar cobrança PIX",
+                "operationId": "0cd2694ab5ecdd1f478a6a97874e3b2b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount",
+                                    "project_id",
+                                    "donor_name",
+                                    "donor_email",
+                                    "donor_cpf",
+                                    "donor_phone"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100
+                                    },
+                                    "project_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "donor_name": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "donor_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "joao@email.com"
+                                    },
+                                    "donor_cpf": {
+                                        "type": "string",
+                                        "example": "11144477735"
+                                    },
+                                    "donor_phone": {
+                                        "type": "string",
+                                        "example": "11999999999"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Doação para o projeto"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cobrança PIX criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cobrança PIX criada com sucesso!"
+                                        },
+                                        "donate": {
+                                            "$ref": "#/components/schemas/Donate"
+                                        },
+                                        "payment": {
+                                            "type": "object"
+                                        },
+                                        "pix_code": {
+                                            "type": "string",
+                                            "example": "QR Code PIX"
+                                        },
+                                        "pix_copy_paste": {
+                                            "type": "string",
+                                            "example": "Código PIX para copiar"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Erro ao criar cobrança PIX"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "Projetos"
+                ],
+                "summary": "Listar todos os projetos",
+                "operationId": "8d4a13ef3fc773ff4031e515460919ea",
+                "responses": {
+                    "200": {
+                        "description": "Lista de projetos retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Project"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Projetos"
+                ],
+                "summary": "Criar um novo projeto",
+                "operationId": "a4dd4c17bf5fc24c224357f03dcc848a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "budget",
+                                    "start_date",
+                                    "end_date",
+                                    "owner_name",
+                                    "cellphone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Vaquinha do João"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "João precisa de dinheiro para comprar um novo celular"
+                                    },
+                                    "budget": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1500
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-01-20"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-02-20"
+                                    },
+                                    "owner_name": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "cellphone": {
+                                        "type": "string",
+                                        "example": "11999999999"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Projeto criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Projeto criado com sucesso!"
+                                        },
+                                        "project": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Project": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Vaquinha do João"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "João precisa de dinheiro para comprar um novo celular"
+                    },
+                    "budget": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1500
+                    },
+                    "current_amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 500
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-20T00:00:00.000000Z"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-02-20T00:00:00.000000Z"
+                    },
+                    "owner_name": {
+                        "type": "string",
+                        "example": "João Silva"
+                    },
+                    "cellphone": {
+                        "type": "string",
+                        "example": "11999999999"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Shark Tank"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Donate": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "paid"
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "donor_name": {
+                        "type": "string",
+                        "example": "Maria Santos"
+                    },
+                    "cellphone": {
+                        "type": "string",
+                        "example": "11888888888"
+                    },
+                    "asaas_cliente_id": {
+                        "type": "string",
+                        "example": "cus_123456"
+                    },
+                    "asaas_cobranca_id": {
+                        "type": "string",
+                        "example": "pay_789012"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Error": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Erro de validação"
+                    },
+                    "errors": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Webhooks",
+            "description": "Endpoints para webhooks do Asaas"
+        },
+        {
+            "name": "Pagamentos",
+            "description": "Endpoints para integração com Asaas (PIX, Boleto)"
+        },
+        {
+            "name": "Projetos",
+            "description": "Endpoints para gerenciamento de projetos/vaquinhas"
+        }
+    ]
+}

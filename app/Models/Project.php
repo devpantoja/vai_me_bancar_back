@@ -10,7 +10,6 @@ class Project extends Model
         'name',
         'description',
         'budget',
-        'goal_amount',
         'start_date',
         'end_date',
         'owner_name',
@@ -22,7 +21,6 @@ class Project extends Model
 
     protected $casts = [
         'budget' => 'decimal:2',
-        'goal_amount' => 'decimal:2',
         'current_amount' => 'decimal:2',
         'start_date' => 'datetime',
         'end_date' => 'datetime',
@@ -93,8 +91,8 @@ class Project extends Model
      */
     public function getProgressPercentage()
     {
-        if ($this->goal_amount <= 0) return 0;
-        return min(100, ($this->current_amount / $this->goal_amount) * 100);
+        if ($this->budget <= 0) return 0;
+        return min(100, ($this->current_amount / $this->budget) * 100);
     }
 
     /**
@@ -102,7 +100,7 @@ class Project extends Model
      */
     public function isGoalReached()
     {
-        return $this->current_amount >= $this->goal_amount;
+        return $this->current_amount >= $this->budget;
     }
 
     /**
@@ -133,11 +131,11 @@ class Project extends Model
      */
     public function generateTrollMessage($donateAmount, $donorName)
     {
-        $percentage = ($donateAmount / $this->goal_amount) * 100;
+        $percentage = ($donateAmount / $this->budget) * 100;
         
         if ($percentage < 1) {
             return "{$donorName} deu R$ {$donateAmount}, parabéns, agora você só precisa de mais R$ " . 
-                   number_format($this->goal_amount - $donateAmount, 2, ',', '.') . 
+                   number_format($this->budget - $donateAmount, 2, ',', '.') . 
                    " pra ser relevante 😂";
         } elseif ($percentage < 5) {
             return "{$donorName} botou R$ {$donateAmount}, está querendo ser o herói da vaquinha 🤡";

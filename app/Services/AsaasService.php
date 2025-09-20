@@ -24,6 +24,11 @@ class AsaasService
      */
     public function createCustomer(array $customerData): array
     {
+        // Formatar telefone para o padrão do Asaas (apenas números)
+        if (isset($customerData['phone'])) {
+            $customerData['phone'] = preg_replace('/\D/', '', $customerData['phone']);
+        }
+
         $response = Http::withHeaders([
             'access_token' => $this->apiKey,
             'Content-Type' => 'application/json',
