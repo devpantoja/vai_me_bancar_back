@@ -21,7 +21,19 @@ class DonateController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/donates",
+     *     summary="Listar todas as doações",
+     *     tags={"Doações"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de doações retornada com sucesso",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Donate")
+     *         )
+     *     )
+     * )
      */
     public function index()
     {
@@ -38,7 +50,40 @@ class DonateController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/donates",
+     *     summary="Criar uma nova doação",
+     *     tags={"Doações"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"amount", "status", "project_id", "donor_name", "cellphone"},
+     *             @OA\Property(property="amount", type="number", format="float", example=100.00),
+     *             @OA\Property(property="status", type="string", example="paid"),
+     *             @OA\Property(property="project_id", type="integer", example=1),
+     *             @OA\Property(property="donor_name", type="string", example="Maria Santos"),
+     *             @OA\Property(property="cellphone", type="string", example="11888888888"),
+     *             @OA\Property(property="asaas_cliente_id", type="string", example="cus_123456"),
+     *             @OA\Property(property="asaas_cobranca_id", type="string", example="pay_789012")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Doação criada com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Doação criada com sucesso!"),
+     *             @OA\Property(property="donate", ref="#/components/schemas/Donate"),
+     *             @OA\Property(property="troll_message", type="string", example="Mensagem de zoeira"),
+     *             @OA\Property(property="project_progress", type="number", format="float", example=75.5),
+     *             @OA\Property(property="is_goal_reached", type="boolean", example=false)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -77,7 +122,28 @@ class DonateController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/donates/{donate}",
+     *     summary="Buscar doação específica",
+     *     tags={"Doações"},
+     *     @OA\Parameter(
+     *         name="donate",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="ID da doação"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Doação encontrada com sucesso",
+     *         @OA\JsonContent(ref="#/components/schemas/Donate")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Doação não encontrada",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
      */
     public function show(Donate $donate)
     {
@@ -94,7 +160,48 @@ class DonateController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/donates/{donate}",
+     *     summary="Atualizar doação",
+     *     tags={"Doações"},
+     *     @OA\Parameter(
+     *         name="donate",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="ID da doação"
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="amount", type="number", format="float", example=150.00),
+     *             @OA\Property(property="status", type="string", example="paid"),
+     *             @OA\Property(property="project_id", type="integer", example=1),
+     *             @OA\Property(property="donor_name", type="string", example="Maria Santos"),
+     *             @OA\Property(property="cellphone", type="string", example="11888888888"),
+     *             @OA\Property(property="asaas_cliente_id", type="string", example="cus_123456"),
+     *             @OA\Property(property="asaas_cobranca_id", type="string", example="pay_789012")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Doação atualizada com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Doação atualizada com sucesso!"),
+     *             @OA\Property(property="donate", ref="#/components/schemas/Donate")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Doação não encontrada",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
      */
     public function update(Request $request, Donate $donate)
     {
@@ -118,7 +225,30 @@ class DonateController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/donates/{donate}",
+     *     summary="Excluir doação",
+     *     tags={"Doações"},
+     *     @OA\Parameter(
+     *         name="donate",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="ID da doação"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Doação excluída com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Doação excluída com sucesso!")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Doação não encontrada",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
      */
     public function destroy(Donate $donate)
     {
@@ -130,7 +260,31 @@ class DonateController extends Controller
     }
 
     /**
-     * Listar doações por projeto
+     * @OA\Get(
+     *     path="/api/projects/{project}/donates",
+     *     summary="Listar doações de um projeto",
+     *     tags={"Doações"},
+     *     @OA\Parameter(
+     *         name="project",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="ID do projeto"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de doações do projeto",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="project", ref="#/components/schemas/Project"),
+     *             @OA\Property(property="donates", type="array", @OA\Items(ref="#/components/schemas/Donate"))
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Projeto não encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     )
+     * )
      */
     public function byProject(Project $project)
     {
@@ -248,7 +402,50 @@ class DonateController extends Controller
     }
 
     /**
-     * Criar cobrança via boleto no Asaas
+     * @OA\Post(
+     *     path="/api/donates/boleto",
+     *     summary="Criar cobrança via boleto",
+     *     tags={"Pagamentos"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"amount", "project_id", "donor_name", "donor_email", "donor_cpf", "donor_phone", "donor_address", "donor_city", "donor_state", "donor_zipcode"},
+     *             @OA\Property(property="amount", type="number", format="float", example=250.00),
+     *             @OA\Property(property="project_id", type="integer", example=1),
+     *             @OA\Property(property="donor_name", type="string", example="Pedro Costa"),
+     *             @OA\Property(property="donor_email", type="string", format="email", example="pedro@email.com"),
+     *             @OA\Property(property="donor_cpf", type="string", example="11144477735"),
+     *             @OA\Property(property="donor_phone", type="string", example="11777777777"),
+     *             @OA\Property(property="donor_address", type="string", example="Rua das Flores, 123"),
+     *             @OA\Property(property="donor_city", type="string", example="São Paulo"),
+     *             @OA\Property(property="donor_state", type="string", example="SP"),
+     *             @OA\Property(property="donor_zipcode", type="string", example="01234567"),
+     *             @OA\Property(property="description", type="string", example="Doação para o projeto")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Cobrança boleto criada com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Cobrança boleto criada com sucesso!"),
+     *             @OA\Property(property="donate", ref="#/components/schemas/Donate"),
+     *             @OA\Property(property="payment", type="object"),
+     *             @OA\Property(property="boleto_url", type="string", example="URL do boleto")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro interno do servidor",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Erro ao criar cobrança boleto")
+     *         )
+     *     )
+     * )
      */
     public function createBoletoPayment(Request $request)
     {
@@ -321,7 +518,45 @@ class DonateController extends Controller
     }
 
     /**
-     * Verificar status de uma cobrança
+     * @OA\Get(
+     *     path="/api/donates/{donate}/status",
+     *     summary="Verificar status de pagamento",
+     *     tags={"Pagamentos"},
+     *     @OA\Parameter(
+     *         name="donate",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         description="ID da doação"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Status verificado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="donate", ref="#/components/schemas/Donate"),
+     *             @OA\Property(property="payment", type="object", description="Dados do pagamento no Asaas")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Doação não possui cobrança no Asaas",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Doação não possui cobrança no Asaas")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Doação não encontrada",
+     *         @OA\JsonContent(ref="#/components/schemas/Error")
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro interno do servidor",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Erro ao verificar status")
+     *         )
+     *     )
+     * )
      */
     public function checkPaymentStatus(Donate $donate)
     {
