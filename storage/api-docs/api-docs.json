@@ -131,52 +131,15 @@
                 "tags": [
                     "Doações"
                 ],
-                "summary": "Criar uma nova doação",
+                "summary": "Criar uma nova doação (ajudar ou parar projeto)",
+                "description": "Cria uma nova doação. Use 'help' para ajudar o projeto ou 'stop' para sabotar (subtrair valor)! 😈",
                 "operationId": "d3896f0497e3aab37c7a715f5f464ac5",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "amount",
-                                    "status",
-                                    "project_id",
-                                    "donor_name",
-                                    "cellphone"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 100
-                                    },
-                                    "status": {
-                                        "type": "string",
-                                        "example": "paid"
-                                    },
-                                    "project_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "donor_name": {
-                                        "type": "string",
-                                        "example": "Maria Santos"
-                                    },
-                                    "cellphone": {
-                                        "type": "string",
-                                        "example": "11888888888"
-                                    },
-                                    "asaas_cliente_id": {
-                                        "type": "string",
-                                        "example": "cus_123456"
-                                    },
-                                    "asaas_cobranca_id": {
-                                        "type": "string",
-                                        "example": "pay_789012"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/CreateDonateData"
                             }
                         }
                     }
@@ -190,14 +153,14 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Doação criada com sucesso!"
+                                            "example": "Doação para AJUDAR o projeto criada com sucesso! 💚"
                                         },
                                         "donate": {
                                             "$ref": "#/components/schemas/Donate"
                                         },
                                         "troll_message": {
                                             "type": "string",
-                                            "example": "Mensagem de zoeira"
+                                            "example": "😈 João acabou de DOAR PARA PARAR o projeto 'Viagem dos Sonhos'! R$ 100 para fazer o projeto falhar! Que maldade! 😂"
                                         },
                                         "project_progress": {
                                             "type": "number",
@@ -207,6 +170,14 @@
                                         "is_goal_reached": {
                                             "type": "boolean",
                                             "example": false
+                                        },
+                                        "donation_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "help",
+                                                "stop"
+                                            ],
+                                            "example": "help"
                                         }
                                     },
                                     "type": "object"
@@ -473,54 +444,15 @@
                 "tags": [
                     "Pagamentos"
                 ],
-                "summary": "Criar cobrança PIX",
+                "summary": "Criar cobrança PIX (ajudar ou parar projeto)",
+                "description": "Cria uma cobrança PIX para doação. Use 'help' para ajudar o projeto ou 'stop' para sabotar! 😈",
                 "operationId": "0cd2694ab5ecdd1f478a6a97874e3b2b",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "amount",
-                                    "project_id",
-                                    "donor_name",
-                                    "donor_email",
-                                    "donor_cpf",
-                                    "donor_phone"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 100
-                                    },
-                                    "project_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "donor_name": {
-                                        "type": "string",
-                                        "example": "João Silva"
-                                    },
-                                    "donor_email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "joao@email.com"
-                                    },
-                                    "donor_cpf": {
-                                        "type": "string",
-                                        "example": "11144477735"
-                                    },
-                                    "donor_phone": {
-                                        "type": "string",
-                                        "example": "11999999999"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "Doação para o projeto"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/CreatePixPaymentData"
                             }
                         }
                     }
@@ -549,6 +481,14 @@
                                         "pix_copy_paste": {
                                             "type": "string",
                                             "example": "Código PIX para copiar"
+                                        },
+                                        "donation_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "help",
+                                                "stop"
+                                            ],
+                                            "example": "help"
                                         }
                                     },
                                     "type": "object"
@@ -590,74 +530,15 @@
                 "tags": [
                     "Pagamentos"
                 ],
-                "summary": "Criar cobrança via boleto",
+                "summary": "Criar cobrança via boleto (ajudar ou parar projeto)",
+                "description": "Cria uma cobrança via boleto para doação. Use 'help' para ajudar o projeto ou 'stop' para sabotar! 😈",
                 "operationId": "b5636ff55b1ba6f449fd5e1dcd7be8e7",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "amount",
-                                    "project_id",
-                                    "donor_name",
-                                    "donor_email",
-                                    "donor_cpf",
-                                    "donor_phone",
-                                    "donor_address",
-                                    "donor_city",
-                                    "donor_state",
-                                    "donor_zipcode"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 250
-                                    },
-                                    "project_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "donor_name": {
-                                        "type": "string",
-                                        "example": "Pedro Costa"
-                                    },
-                                    "donor_email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "pedro@email.com"
-                                    },
-                                    "donor_cpf": {
-                                        "type": "string",
-                                        "example": "11144477735"
-                                    },
-                                    "donor_phone": {
-                                        "type": "string",
-                                        "example": "11777777777"
-                                    },
-                                    "donor_address": {
-                                        "type": "string",
-                                        "example": "Rua das Flores, 123"
-                                    },
-                                    "donor_city": {
-                                        "type": "string",
-                                        "example": "São Paulo"
-                                    },
-                                    "donor_state": {
-                                        "type": "string",
-                                        "example": "SP"
-                                    },
-                                    "donor_zipcode": {
-                                        "type": "string",
-                                        "example": "01234567"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "Doação para o projeto"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/CreateBoletoPaymentData"
                             }
                         }
                     }
@@ -682,6 +563,14 @@
                                         "boleto_url": {
                                             "type": "string",
                                             "example": "URL do boleto"
+                                        },
+                                        "donation_type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "help",
+                                                "stop"
+                                            ],
+                                            "example": "help"
                                         }
                                     },
                                     "type": "object"
@@ -914,6 +803,298 @@
                     }
                 }
             }
+        },
+        "/api/projects/{project}": {
+            "get": {
+                "tags": [
+                    "Projetos"
+                ],
+                "summary": "Visualizar projeto específico",
+                "operationId": "1352e06e55f6ab10d3702509cd385918",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Projeto retornado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "project": {
+                                            "$ref": "#/components/schemas/Project"
+                                        },
+                                        "fundraising_stats": {
+                                            "properties": {
+                                                "help_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 500
+                                                },
+                                                "stop_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 300
+                                                },
+                                                "total_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 800
+                                                },
+                                                "help_percentage": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 62.5
+                                                },
+                                                "stop_percentage": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 37.5
+                                                },
+                                                "stop_wins": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "troll_message": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "help_count": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "stop_count": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/projects/{project}/info": {
+            "get": {
+                "tags": [
+                    "Projetos"
+                ],
+                "summary": "Obter informações completas do projeto com gamificação",
+                "operationId": "0450ce1917054dd817823b6150310341",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informações completas do projeto retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "project": {
+                                            "$ref": "#/components/schemas/Project"
+                                        },
+                                        "progress_percentage": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 27.55
+                                        },
+                                        "time_remaining": {
+                                            "type": "string",
+                                            "example": "30 dias restantes"
+                                        },
+                                        "is_goal_reached": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "daily_ranking": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Donate"
+                                            }
+                                        },
+                                        "top_donor_today": {
+                                            "$ref": "#/components/schemas/Donate"
+                                        },
+                                        "lowest_donor_today": {
+                                            "$ref": "#/components/schemas/Donate"
+                                        },
+                                        "fundraising_stats": {
+                                            "properties": {
+                                                "help_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 500
+                                                },
+                                                "stop_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 300
+                                                },
+                                                "total_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 800
+                                                },
+                                                "help_percentage": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 62.5
+                                                },
+                                                "stop_percentage": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 37.5
+                                                },
+                                                "stop_wins": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "troll_message": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "help_count": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "stop_count": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/projects/{project}/fundraising-stats": {
+            "get": {
+                "tags": [
+                    "Projetos"
+                ],
+                "summary": "Obter estatísticas de arrecadação do projeto",
+                "operationId": "9214286f3c05969bc87449b711c44ac7",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estatísticas de arrecadação retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "project_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "project_name": {
+                                            "type": "string",
+                                            "example": "Vaquinha do João"
+                                        },
+                                        "help_amount": {
+                                            "description": "Valor total arrecadado para ajudar",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 500
+                                        },
+                                        "stop_amount": {
+                                            "description": "Valor total arrecadado para parar",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 300
+                                        },
+                                        "total_amount": {
+                                            "description": "Valor total arrecadado",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 800
+                                        },
+                                        "help_percentage": {
+                                            "description": "Porcentagem de doações para ajudar",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 62.5
+                                        },
+                                        "stop_percentage": {
+                                            "description": "Porcentagem de doações para parar",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 37.5
+                                        },
+                                        "stop_wins": {
+                                            "description": "Se as doações para parar são maiores que para ajudar",
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "troll_message": {
+                                            "type": "string",
+                                            "example": "🚨 ALERTA! O projeto está sendo SABOTADO! 😈",
+                                            "nullable": true
+                                        },
+                                        "help_count": {
+                                            "description": "Número de doações para ajudar",
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "stop_count": {
+                                            "description": "Número de doações para parar",
+                                            "type": "integer",
+                                            "example": 3
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1014,6 +1195,20 @@
                         "type": "string",
                         "example": "pay_789012"
                     },
+                    "donation_type": {
+                        "description": "Tipo da doação: help (ajudar) ou stop (parar projeto)",
+                        "type": "string",
+                        "enum": [
+                            "help",
+                            "stop"
+                        ],
+                        "example": "help"
+                    },
+                    "donation_message": {
+                        "description": "Mensagem personalizada do doador",
+                        "type": "string",
+                        "example": "Boa sorte com o projeto!"
+                    },
                     "created_at": {
                         "type": "string",
                         "format": "date-time"
@@ -1021,6 +1216,226 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateDonateData": {
+                "required": [
+                    "amount",
+                    "status",
+                    "project_id",
+                    "donor_name",
+                    "cellphone",
+                    "donation_type"
+                ],
+                "properties": {
+                    "amount": {
+                        "description": "Valor da doação",
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "paid",
+                            "cancelled"
+                        ],
+                        "example": "pending"
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "donor_name": {
+                        "type": "string",
+                        "example": "Maria Santos"
+                    },
+                    "cellphone": {
+                        "type": "string",
+                        "example": "11888888888"
+                    },
+                    "asaas_cliente_id": {
+                        "type": "string",
+                        "example": "cus_123456"
+                    },
+                    "asaas_cobranca_id": {
+                        "type": "string",
+                        "example": "pay_789012"
+                    },
+                    "donation_type": {
+                        "description": "Tipo da doação: help (ajudar) ou stop (parar projeto)",
+                        "type": "string",
+                        "enum": [
+                            "help",
+                            "stop"
+                        ],
+                        "example": "help"
+                    },
+                    "donation_message": {
+                        "description": "Mensagem personalizada do doador",
+                        "type": "string",
+                        "example": "Boa sorte com o projeto!"
+                    }
+                },
+                "type": "object"
+            },
+            "CreatePixPaymentData": {
+                "required": [
+                    "amount",
+                    "project_id",
+                    "donor_name",
+                    "donor_email",
+                    "donor_cpf",
+                    "donor_phone",
+                    "donation_type"
+                ],
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "donor_name": {
+                        "type": "string",
+                        "example": "Maria Santos"
+                    },
+                    "donor_email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "maria@email.com"
+                    },
+                    "donor_cpf": {
+                        "type": "string",
+                        "example": "12345678901"
+                    },
+                    "donor_phone": {
+                        "type": "string",
+                        "example": "11999999999"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Doação para ajudar o projeto"
+                    },
+                    "donation_type": {
+                        "description": "Tipo da doação: help (ajudar) ou stop (parar projeto)",
+                        "type": "string",
+                        "enum": [
+                            "help",
+                            "stop"
+                        ],
+                        "example": "help"
+                    },
+                    "donation_message": {
+                        "description": "Mensagem personalizada do doador",
+                        "type": "string",
+                        "example": "Boa sorte!"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateBoletoPaymentData": {
+                "required": [
+                    "amount",
+                    "project_id",
+                    "donor_name",
+                    "donor_email",
+                    "donor_cpf",
+                    "donor_phone",
+                    "donor_address",
+                    "donor_city",
+                    "donor_state",
+                    "donor_zipcode",
+                    "donation_type"
+                ],
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "donor_name": {
+                        "type": "string",
+                        "example": "Maria Santos"
+                    },
+                    "donor_email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "maria@email.com"
+                    },
+                    "donor_cpf": {
+                        "type": "string",
+                        "example": "12345678901"
+                    },
+                    "donor_phone": {
+                        "type": "string",
+                        "example": "11999999999"
+                    },
+                    "donor_address": {
+                        "type": "string",
+                        "example": "Rua das Flores, 123"
+                    },
+                    "donor_city": {
+                        "type": "string",
+                        "example": "São Paulo"
+                    },
+                    "donor_state": {
+                        "type": "string",
+                        "example": "SP"
+                    },
+                    "donor_zipcode": {
+                        "type": "string",
+                        "example": "01234567"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Doação para ajudar o projeto"
+                    },
+                    "donation_type": {
+                        "description": "Tipo da doação: help (ajudar) ou stop (parar projeto)",
+                        "type": "string",
+                        "enum": [
+                            "help",
+                            "stop"
+                        ],
+                        "example": "help"
+                    },
+                    "donation_message": {
+                        "description": "Mensagem personalizada do doador",
+                        "type": "string",
+                        "example": "Boa sorte!"
+                    }
+                },
+                "type": "object"
+            },
+            "TrollMessage": {
+                "properties": {
+                    "troll_message": {
+                        "type": "string",
+                        "example": "😈 João acabou de DOAR PARA PARAR o projeto 'Viagem dos Sonhos'! R$ 100 para fazer o projeto falhar! Que maldade! 😂"
+                    },
+                    "donation_type": {
+                        "type": "string",
+                        "enum": [
+                            "help",
+                            "stop"
+                        ],
+                        "example": "stop"
+                    },
+                    "is_stop_donation": {
+                        "description": "Indica se é uma doação para parar o projeto",
+                        "type": "boolean",
+                        "example": true
                     }
                 },
                 "type": "object"

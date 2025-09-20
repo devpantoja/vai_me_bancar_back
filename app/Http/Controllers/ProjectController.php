@@ -224,7 +224,42 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/projects/{project}",
+     *     summary="Visualizar projeto específico",
+     *     tags={"Projetos"},
+     *     @OA\Parameter(
+     *         name="project",
+     *         in="path",
+     *         required=true,
+     *         description="ID do projeto",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Projeto retornado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="project", ref="#/components/schemas/Project"),
+     *             @OA\Property(
+     *                 property="fundraising_stats",
+     *                 type="object",
+     *                 @OA\Property(property="help_amount", type="number", format="float", example=500.00),
+     *                 @OA\Property(property="stop_amount", type="number", format="float", example=300.00),
+     *                 @OA\Property(property="total_amount", type="number", format="float", example=800.00),
+     *                 @OA\Property(property="help_percentage", type="number", format="float", example=62.5),
+     *                 @OA\Property(property="stop_percentage", type="number", format="float", example=37.5),
+     *                 @OA\Property(property="stop_wins", type="boolean", example=false),
+     *                 @OA\Property(property="troll_message", type="string", nullable=true),
+     *                 @OA\Property(property="help_count", type="integer", example=5),
+     *                 @OA\Property(property="stop_count", type="integer", example=3)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Projeto não encontrado"
+     *     )
+     * )
      */
     public function show(Project $project)
     {
@@ -283,7 +318,48 @@ class ProjectController extends Controller
     }
 
     /**
-     * Obter informações completas do projeto com gamificação
+     * @OA\Get(
+     *     path="/api/projects/{project}/info",
+     *     summary="Obter informações completas do projeto com gamificação",
+     *     tags={"Projetos"},
+     *     @OA\Parameter(
+     *         name="project",
+     *         in="path",
+     *         required=true,
+     *         description="ID do projeto",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Informações completas do projeto retornadas com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="project", ref="#/components/schemas/Project"),
+     *             @OA\Property(property="progress_percentage", type="number", format="float", example=27.55),
+     *             @OA\Property(property="time_remaining", type="string", example="30 dias restantes"),
+     *             @OA\Property(property="is_goal_reached", type="boolean", example=false),
+     *             @OA\Property(property="daily_ranking", type="array", @OA\Items(ref="#/components/schemas/Donate")),
+     *             @OA\Property(property="top_donor_today", ref="#/components/schemas/Donate"),
+     *             @OA\Property(property="lowest_donor_today", ref="#/components/schemas/Donate"),
+     *             @OA\Property(
+     *                 property="fundraising_stats",
+     *                 type="object",
+     *                 @OA\Property(property="help_amount", type="number", format="float", example=500.00),
+     *                 @OA\Property(property="stop_amount", type="number", format="float", example=300.00),
+     *                 @OA\Property(property="total_amount", type="number", format="float", example=800.00),
+     *                 @OA\Property(property="help_percentage", type="number", format="float", example=62.5),
+     *                 @OA\Property(property="stop_percentage", type="number", format="float", example=37.5),
+     *                 @OA\Property(property="stop_wins", type="boolean", example=false),
+     *                 @OA\Property(property="troll_message", type="string", nullable=true),
+     *                 @OA\Property(property="help_count", type="integer", example=5),
+     *                 @OA\Property(property="stop_count", type="integer", example=3)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Projeto não encontrado"
+     *     )
+     * )
      */
     public function getProjectInfo(Project $project)
     {
