@@ -16,6 +16,7 @@ Route::apiResource('projects', ProjectController::class);
 // Rotas específicas para projetos com gamificação
 Route::get('projects/{project}/info', [ProjectController::class, 'getProjectInfo']);
 Route::get('projects/{project}/ranking', [ProjectController::class, 'getDailyRanking']);
+Route::get('projects/{project}/fundraising-stats', [ProjectController::class, 'getFundraisingStats']);
 Route::post('projects/{project}/troll-message', [ProjectController::class, 'generateTrollMessage']);
 
 // Rotas da API para Doações

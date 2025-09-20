@@ -16,6 +16,9 @@ API completa para sistema de crowdfunding gamificado com categorização automá
 - Ranking diário de doadores
 - Coroa virtual para maior doador 👑
 - Título "Mão de Alface" para menor doador 🥬
+- **Sistema de Guerra de Vaquinhas**: Doações para ajudar vs parar projetos
+- **Mensagens engraçadas** quando doações para parar superam as de ajudar
+- **Estatísticas detalhadas** com porcentagens de cada tipo de doação
 
 ## 🚀 Como Usar
 
@@ -42,6 +45,7 @@ API completa para sistema de crowdfunding gamificado com categorização automá
 ### Gamificação
 - `GET /api/projects/{id}/info` - Informações completas com progresso
 - `GET /api/projects/{id}/ranking` - Ranking de zoeira do dia
+- `GET /api/projects/{id}/fundraising-stats` - Estatísticas de arrecadação (help vs stop)
 - `POST /api/projects/{id}/troll-message` - Gerar mensagem de zoeira
 
 ### Doações
@@ -72,6 +76,17 @@ API completa para sistema de crowdfunding gamificado com categorização automá
 "João deu R$ 1000, esse aí é o verdadeiro MVP! 👑"
 ```
 
+## 🎭 Exemplos de Mensagens de Guerra de Vaquinhas
+
+### Quando Stop > Help
+```
+"🚨 ALERTA! O projeto 'Viagem dos Sonhos' está sendo SABOTADO! 😈"
+"💀 Os haters estão ganhando! R$ 800,00 para PARAR vs R$ 500,00 para AJUDAR!"
+"🔥 Guerra de vaquinhas! Os trolls estão na frente com 61.5% das doações!"
+"😱 O projeto está sendo BOICOTADO! Mais gente quer ver falhar do que dar certo!"
+"🎭 Plot twist! A vaquinha virou uma guerra entre anjos e demônios! 😂"
+```
+
 ## 📊 Exemplo de Resposta Completa
 
 ```json
@@ -80,11 +95,22 @@ API completa para sistema de crowdfunding gamificado com categorização automá
     "id": 1,
     "name": "Vaquinha do João",
     "category": "Shark Tank",
-    "goal_amount": 2000.00,
+    "budget": 2000.00,
     "current_amount": 551.00,
     "progress_percentage": 27.55,
     "time_remaining": "30 dias restantes",
     "is_goal_reached": false
+  },
+  "fundraising_stats": {
+    "help_amount": 300.00,
+    "stop_amount": 251.00,
+    "total_amount": 551.00,
+    "help_percentage": 54.45,
+    "stop_percentage": 45.55,
+    "stop_wins": false,
+    "troll_message": null,
+    "help_count": 3,
+    "stop_count": 2
   },
   "daily_ranking": [
     {
@@ -105,6 +131,24 @@ API completa para sistema de crowdfunding gamificado com categorização automá
 }
 ```
 
+## 📊 Exemplo de Estatísticas de Arrecadação
+
+```json
+{
+  "project_id": 1,
+  "project_name": "Vaquinha do João",
+  "help_amount": 300.00,
+  "stop_amount": 800.00,
+  "total_amount": 1100.00,
+  "help_percentage": 27.27,
+  "stop_percentage": 72.73,
+  "stop_wins": true,
+  "troll_message": "🚨 ALERTA! O projeto 'Vaquinha do João' está sendo SABOTADO! 😈",
+  "help_count": 3,
+  "stop_count": 5
+}
+```
+
 ## 🧪 Testes Incluídos
 
 A coleção inclui endpoints de teste para:
@@ -113,6 +157,9 @@ A coleção inclui endpoints de teste para:
 - ✅ Sistema de ranking
 - ✅ Progresso de metas
 - ✅ Diferentes tipos de doações
+- ✅ Sistema de guerra de vaquinhas (help vs stop)
+- ✅ Estatísticas de arrecadação com porcentagens
+- ✅ Mensagens engraçadas quando stop > help
 
 ## 🎯 Próximos Passos
 

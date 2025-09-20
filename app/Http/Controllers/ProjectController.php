@@ -229,7 +229,14 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $project->load('donates');
-        return response()->json($project);
+        $project->updateCurrentAmount();
+        
+        $response = [
+            'project' => $project,
+            'fundraising_stats' => $project->getFundraisingStats(),
+        ];
+        
+        return response()->json($response);
     }
 
     /**
@@ -291,6 +298,7 @@ class ProjectController extends Controller
             'daily_ranking' => $project->getDailyRanking(),
             'top_donor_today' => $project->getDailyTopDonor(),
             'lowest_donor_today' => $project->getDailyLowestDonor(),
+            'fundraising_stats' => $project->getFundraisingStats(),
         ];
         
         return response()->json($info);
@@ -336,5 +344,53 @@ class ProjectController extends Controller
             'donor_name' => $request->donor_name,
             'project_name' => $project->name
         ]);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/projects/{project}/fundraising-stats",
+     *     summary="Obter estatísticas de arrecadação do projeto",
+     *     tags={"Projetos"},
+     *     @OA\Parameter(
+     *         name="project",
+     *         in="path",
+     *         required=true,
+     *         description="ID do projeto",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Estatísticas de arrecadação retornadas com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="project_id", type="integer", example=1),
+     *             @OA\Property(property="project_name", type="string", example="Vaquinha do João"),
+     *             @OA\Property(property="help_amount", type="number", format="float", example=500.00, description="Valor total arrecadado para ajudar"),
+     *             @OA\Property(property="stop_amount", type="number", format="float", example=300.00, description="Valor total arrecadado para parar"),
+     *             @OA\Property(property="total_amount", type="number", format="float", example=800.00, description="Valor total arrecadado"),
+     *             @OA\Property(property="help_percentage", type="number", format="float", example=62.5, description="Porcentagem de doações para ajudar"),
+     *             @OA\Property(property="stop_percentage", type="number", format="float", example=37.5, description="Porcentagem de doações para parar"),
+     *             @OA\Property(property="stop_wins", type="boolean", example=false, description="Se as doações para parar são maiores que para ajudar"),
+     *             @OA\Property(property="troll_message", type="string", nullable=true, example="🚨 ALERTA! O projeto está sendo SABOTADO! 😈"),
+     *             @OA\Property(property="help_count", type="integer", example=5, description="Número de doações para ajudar"),
+     *             @OA\Property(property="stop_count", type="integer", example=3, description="Número de doações para parar")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Projeto não encontrado"
+     *     )
+     * )
+     */
+    public function getFundraisingStats(Project $project)
+    {
+        $stats = $project->getFundraisingStats();
+        
+        $response = [
+            'project_id' => $project->id,
+            'project_name' => $project->name,
+            ...$stats
+        ];
+        
+        return response()->json($response);
     }
 }

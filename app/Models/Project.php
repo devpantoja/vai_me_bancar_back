@@ -197,4 +197,102 @@ class Project extends Model
         $this->current_amount = $totalPaid;
         $this->save();
     }
+
+    /**
+     * Calcula o total arrecadado para ajudar o projeto
+     */
+    public function getHelpAmount()
+    {
+        return $this->donates()
+            ->where('status', 'paid')
+            ->where('donation_type', 'help')
+            ->sum('amount');
+    }
+
+    /**
+     * Calcula o total arrecadado para parar o projeto
+     */
+    public function getStopAmount()
+    {
+        return $this->donates()
+            ->where('status', 'paid')
+            ->where('donation_type', 'stop')
+            ->sum('amount');
+    }
+
+    /**
+     * Calcula a porcentagem de doações para ajudar
+     */
+    public function getHelpPercentage()
+    {
+        $helpAmount = $this->getHelpAmount();
+        $stopAmount = $this->getStopAmount();
+        $totalAmount = $helpAmount + $stopAmount;
+        
+        if ($totalAmount <= 0) return 0;
+        
+        return round(($helpAmount / $totalAmount) * 100, 2);
+    }
+
+    /**
+     * Calcula a porcentagem de doações para parar
+     */
+    public function getStopPercentage()
+    {
+        $helpAmount = $this->getHelpAmount();
+        $stopAmount = $this->getStopAmount();
+        $totalAmount = $helpAmount + $stopAmount;
+        
+        if ($totalAmount <= 0) return 0;
+        
+        return round(($stopAmount / $totalAmount) * 100, 2);
+    }
+
+    /**
+     * Gera mensagem engraçada quando stop > help
+     */
+    public function generateStopWinMessage()
+    {
+        $helpAmount = $this->getHelpAmount();
+        $stopAmount = $this->getStopAmount();
+        
+        if ($stopAmount <= $helpAmount) {
+            return null; // Não gera mensagem se stop não for maior que help
+        }
+        
+        $messages = [
+            "🚨 ALERTA! O projeto '{$this->name}' está sendo SABOTADO! 😈",
+            "💀 Os haters estão ganhando! R$ " . number_format($stopAmount, 2, ',', '.') . " para PARAR vs R$ " . number_format($helpAmount, 2, ',', '.') . " para AJUDAR!",
+            "🔥 Guerra de vaquinhas! Os trolls estão na frente com " . $this->getStopPercentage() . "% das doações!",
+            "😱 O projeto está sendo BOICOTADO! Mais gente quer ver falhar do que dar certo!",
+            "🎭 Plot twist! A vaquinha virou uma guerra entre anjos e demônios! 😂",
+            "⚔️ Batalha épica! R$ " . number_format($stopAmount - $helpAmount, 2, ',', '.') . " a mais para DESTRUIR o projeto!",
+            "🎪 Circo dos horrores! Os haters estão dominando a vaquinha!",
+            "🚫 STOP ganhando! O projeto está sendo cancelado pelos próprios doadores! 😅"
+        ];
+        
+        return $messages[array_rand($messages)];
+    }
+
+    /**
+     * Retorna estatísticas completas de arrecadação
+     */
+    public function getFundraisingStats()
+    {
+        $helpAmount = $this->getHelpAmount();
+        $stopAmount = $this->getStopAmount();
+        $totalAmount = $helpAmount + $stopAmount;
+        
+        return [
+            'help_amount' => $helpAmount,
+            'stop_amount' => $stopAmount,
+            'total_amount' => $totalAmount,
+            'help_percentage' => $this->getHelpPercentage(),
+            'stop_percentage' => $this->getStopPercentage(),
+            'stop_wins' => $stopAmount > $helpAmount,
+            'troll_message' => $this->generateStopWinMessage(),
+            'help_count' => $this->donates()->where('status', 'paid')->where('donation_type', 'help')->count(),
+            'stop_count' => $this->donates()->where('status', 'paid')->where('donation_type', 'stop')->count(),
+        ];
+    }
 }
