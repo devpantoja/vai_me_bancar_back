@@ -1,0 +1,821 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-01-20T15:30:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_001",
+      "parentId": "fld_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Listar Projetos",
+      "description": "Lista todos os projetos com suas categorias automáticas",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_002",
+      "parentId": "fld_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Criar Projeto",
+      "description": "Cria um novo projeto (categoria é definida automaticamente)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Vaquinha do João\",\n  \"description\": \"João precisa de dinheiro para comprar um novo celular\",\n  \"budget\": 1500,\n  \"goal_amount\": 2000,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"João Silva\",\n  \"cellphone\": \"11999999999\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_003",
+      "parentId": "fld_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}",
+      "name": "Visualizar Projeto",
+      "description": "Visualiza um projeto específico com suas doações",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_004",
+      "parentId": "fld_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}",
+      "name": "Atualizar Projeto",
+      "description": "Atualiza um projeto existente",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Projeto Atualizado\",\n  \"description\": \"Nova descrição do projeto\",\n  \"budget\": 2000,\n  \"goal_amount\": 2500,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"João Silva\",\n  \"cellphone\": \"11999999999\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_005",
+      "parentId": "fld_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}",
+      "name": "Excluir Projeto",
+      "description": "Exclui um projeto",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_006",
+      "parentId": "fld_002",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}/info",
+      "name": "Informações Completas do Projeto",
+      "description": "Obter informações completas com progresso, tempo restante e ranking",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_007",
+      "parentId": "fld_002",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}/ranking",
+      "name": "Ranking de Zoeira do Dia",
+      "description": "Obter ranking dos doadores do dia com coroa e título de Mão de Alface",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_008",
+      "parentId": "fld_002",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}/troll-message",
+      "name": "Gerar Mensagem de Zoeira",
+      "description": "Gerar mensagem de zoeira baseada no valor da doação",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"donate_amount\": 50.00,\n  \"donor_name\": \"Maria Santos\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_009",
+      "parentId": "fld_003",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates",
+      "name": "Listar Doações",
+      "description": "Lista todas as doações",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_010",
+      "parentId": "fld_003",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates",
+      "name": "Criar Doação",
+      "description": "Cria uma nova doação com mensagem de zoeira automática",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 100.50,\n  \"status\": \"paid\",\n  \"project_id\": 1,\n  \"donor_name\": \"Maria Santos\",\n  \"cellphone\": \"11888888888\",\n  \"asaas_cliente_id\": \"cus_123456\",\n  \"asaas_cobranca_id\": \"pay_789012\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_011",
+      "parentId": "fld_003",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates/{{ _.donate_id }}",
+      "name": "Visualizar Doação",
+      "description": "Visualiza uma doação específica",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_012",
+      "parentId": "fld_003",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates/{{ _.donate_id }}",
+      "name": "Atualizar Doação",
+      "description": "Atualiza uma doação existente",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 150.75,\n  \"status\": \"paid\",\n  \"donor_name\": \"Maria Santos\",\n  \"cellphone\": \"11888888888\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_013",
+      "parentId": "fld_003",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates/{{ _.donate_id }}",
+      "name": "Excluir Doação",
+      "description": "Exclui uma doação",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_014",
+      "parentId": "fld_004",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}/donates",
+      "name": "Doações do Projeto",
+      "description": "Lista todas as doações de um projeto específico",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_015",
+      "parentId": "fld_004",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects/{{ _.project_id }}/donates",
+      "name": "Criar Doação para Projeto",
+      "description": "Cria uma doação diretamente para um projeto específico",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 250.00,\n  \"status\": \"paid\",\n  \"donor_name\": \"Pedro Costa\",\n  \"cellphone\": \"11777777777\",\n  \"asaas_cliente_id\": \"cus_456789\",\n  \"asaas_cobranca_id\": \"pay_345678\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_016",
+      "parentId": "fld_005",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Teste Categorização - Mão de Vaca",
+      "description": "Testa projeto com categoria Mão de Vaca (até R$ 300)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Vaquinha Mão de Vaca\",\n  \"description\": \"Projeto pequeno para testar categoria\",\n  \"budget\": 200,\n  \"goal_amount\": 300,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"Teste Silva\",\n  \"cellphone\": \"11999999999\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_017",
+      "parentId": "fld_005",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Teste Categorização - Mão de Vaca Médio",
+      "description": "Testa projeto com categoria Mão de Vaca Médio (R$ 301 a R$ 700)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Vaquinha Mão de Vaca Médio\",\n  \"description\": \"Projeto médio para testar categoria\",\n  \"budget\": 500,\n  \"goal_amount\": 600,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"Teste Santos\",\n  \"cellphone\": \"11888888888\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_018",
+      "parentId": "fld_005",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Teste Categorização - Shark Tank",
+      "description": "Testa projeto com categoria Shark Tank (acima de R$ 700)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Vaquinha Shark Tank\",\n  \"description\": \"Projeto grande para testar categoria\",\n  \"budget\": 1000,\n  \"goal_amount\": 1500,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"Teste Costa\",\n  \"cellphone\": \"11777777777\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_019",
+      "parentId": "fld_005",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/projects",
+      "name": "Teste Categorização - Valor Alto",
+      "description": "Testa projeto com valor alto (R$ 10.000) para testar percentuais",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Vaquinha Valor Alto\",\n  \"description\": \"Projeto de alto valor para testar percentuais\",\n  \"budget\": 10000,\n  \"goal_amount\": 15000,\n  \"start_date\": \"2025-01-20\",\n  \"end_date\": \"2025-02-20\",\n  \"owner_name\": \"Teste Grande\",\n  \"cellphone\": \"11666666666\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_020",
+      "parentId": "fld_006",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates",
+      "name": "Teste Doação Pequena",
+      "description": "Testa doação pequena para gerar mensagem de zoeira",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 1.00,\n  \"status\": \"paid\",\n  \"project_id\": 1,\n  \"donor_name\": \"Mão de Alface\",\n  \"cellphone\": \"11555555555\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_021",
+      "parentId": "fld_006",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "url": "{{ _.base_url }}/api/donates",
+      "name": "Teste Doação Grande",
+      "description": "Testa doação grande para gerar mensagem de MVP",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"amount\": 1000.00,\n  \"status\": \"paid\",\n  \"project_id\": 1,\n  \"donor_name\": \"Rei da Vaquinha\",\n  \"cellphone\": \"11444444444\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1737387000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_001",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Projetos",
+      "description": "Endpoints para gerenciar projetos",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_002",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Gamificação",
+      "description": "Endpoints para funcionalidades de gamificação e zoeira",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_003",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Doações",
+      "description": "Endpoints para gerenciar doações",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_004",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Doações por Projeto",
+      "description": "Endpoints específicos para doações de projetos",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_005",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Testes de Categorização",
+      "description": "Testes para verificar o sistema de categorização automática",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_006",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Testes de Zoeira",
+      "description": "Testes para verificar mensagens de zoeira automáticas",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1737387000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_001",
+      "parentId": null,
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Vai Me Bancar API - Gamificado",
+      "description": "API para o sistema de crowdfunding gamificado com categorização automática e zoeira",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_001",
+      "parentId": "wrk_001",
+      "modified": 1737387000000,
+      "created": 1737387000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8000",
+        "project_id": "1",
+        "donate_id": "1"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "project_id",
+          "donate_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1737387000000,
+      "_type": "environment"
+    }
+  ]
+}
